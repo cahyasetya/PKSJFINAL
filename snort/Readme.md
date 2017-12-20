@@ -61,13 +61,24 @@ Perintah: `apt-get install openssh-server ethtool build-essential libpcap-dev li
 `sudo sed -i "s/include \$RULE\_PATH/#include \$RULE\_PATH/" /etc/snort/snort.conf `    
 ![](comment.PNG)
 6. Edit file konfigurasi snort  
+`sudo gedit /etc/snort/snort.conf`    
 ![](editconfig.PNG)  
 ![](commentlocalrules.PNG)  
 7. Validasi setting  
 `snort -T -i enp0s3 -c /etc/snort/snort.conf`  
 ![](validasisettings.PNG)
 8. Apabila pengaturan yang kita masukkan benar maka akan muncul tampilan seperti di bawah:  
-![](snortvalidationsuccess.PNG)  
+![](snortvalidationsuccess.PNG)
+
+#### Menambahkan rules  
+1. Download rule  
+![](downloadrules.PNG)  
+2. Extract file yang telah kita download  
+![](communityextracted.PNG)  
+Buka file tersebut lalu copy file rules ke **/etc/snort**  
+![](copyrules.PNG)  
+3. Buka config snort lalu tambahkan rules community  
+![](bukaconfig.PNG)
 
 ### Testing  
 #### Skenario 1  
@@ -89,3 +100,4 @@ Perintah: `apt-get install openssh-server ethtool build-essential libpcap-dev li
 ![](pingdariwindows.PNG)  
 4. Lihat log di server snort  
 ![](hasilping.PNG)
+
