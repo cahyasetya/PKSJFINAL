@@ -102,6 +102,8 @@ Buka file tersebut lalu copy file rules ke **/etc/snort**
 ![](hasilping.PNG)
 
 #### Sekanrio 2
-1. Membaca file pcap dengan perintah `sudo snort -r maccdc2012_00000.pcap` 
-![](alert.PNG)
+1. Download sembarang pcap lalu scan dengan snort menggunakan syntax `sudo snort -r <file-pcap> -c /etc/snort/snort.conf`  
+![](pcapscan.PNG)
+2. Lihat log `/var/log/snort/alert`  
+![](hasillog.PNG)
 
