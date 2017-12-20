@@ -148,11 +148,11 @@ $ sudo sysctl -w net.ipv4.ip_forward=1
 $ vboxmanage startvm "windowsxp" 
 ```
 ![](install-windows-xp.png)    
-7. Konfigurasi Jaringan Guest OS
-![](ipconfig.png)    
-8. Mematikan Windows Update dan Windows Firewall
-![](off-update.png)    
-![](off-firewall.png)    
+7. Konfigurasi Jaringan Guest OS  
+![](ipconfig.png)      
+8. Mematikan Windows Update dan Windows Firewall  
+![](off-update.png)      
+![](off-firewall.png)      
 9. Install Python pada guest OS  
 Download terlebih dahulu, melalui internet-explorer pada guest OS. masuk ke halaman https://www.python.org/downloads/ kemudian install
 ![](install-python-guest.png)    
