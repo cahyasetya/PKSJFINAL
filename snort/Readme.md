@@ -77,8 +77,8 @@ Perintah: `apt-get install openssh-server ethtool build-essential libpcap-dev li
 ![](communityextracted.PNG)  
 Buka file tersebut lalu copy file rules ke **/etc/snort**  
 ![](copyrules.PNG)  
-3. Buka config snort lalu tambahkan rules community  
-![](bukaconfig.PNG)
+3. Copy file konfigurasi snort  
+![](copysnortconf.PNG)
 
 ### Testing  
 #### Skenario 1  
@@ -100,4 +100,8 @@ Buka file tersebut lalu copy file rules ke **/etc/snort**
 ![](pingdariwindows.PNG)  
 4. Lihat log di server snort  
 ![](hasilping.PNG)
+
+#### Sekanrio 2
+1. Membaca file pcap dengan perintah `sudo snort -r maccdc2012_00000.pcap` 
+![](alert.PNG)
 
