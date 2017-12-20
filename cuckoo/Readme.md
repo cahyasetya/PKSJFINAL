@@ -39,8 +39,7 @@ $ make
 $ sudo make install  
 $ yara -v
 ```
-![](install-yara-1.png)  
-![](install-yara-2.png)  
+![](install-yara-1.png)   
 ![](install-yara-3.png)  
 ![](install-yara-4.png) 
 ![](cek-yara.png)  
