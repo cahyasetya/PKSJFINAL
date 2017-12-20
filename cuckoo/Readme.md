@@ -147,4 +147,82 @@ $ sudo sysctl -w net.ipv4.ip_forward=1
 ```
 $ vboxmanage startvm "windowsxp" 
 ```
-![](install-windows-xp)  
+![](install-windows-xp.png)    
+7. Konfigurasi Jaringan Guest OS
+![](ipconfig.png)    
+8. Mematikan Windows Update dan Windows Firewall
+![](off-update.png)    
+![](off-firewall.png)    
+9. Install Python pada guest OS  
+Download terlebih dahulu, melalui internet-explorer pada guest OS. masuk ke halaman https://www.python.org/downloads/ kemudian install
+![](install-python-guest.png)    
+10. Mengaktifkan Shared Folder dengan Host
+- Klik Device -> Insert guest addition CD Image
+![](insert-addition.png)  
+- My Computer -> My Network Places -> Add a network place
+- Click Browse
+- windowsxpshare on Vboxsrv
+![](shared-folder.png)  
+11. Pindahkan file **agent.py** yang ada di share folder ke  ```C:\\Documents and Settings\All Users\Start Menu\Programs\Startup``` 
+![](copy-ke-startup.png)  
+12. reboot Virtual Machine
+Lalu, buka cmd melalui Start Menu -> run -> ketik cmd lalu klik run. Kemudian ketik ```netstat -ab``` agar mengetahui apakah port 8000 yang disetting pada agent.py berjalan
+![](python-running.png)  
+13. Snapshot
+```
+$ vboxmanage snapshot "windowsxp" take "snapshot1" --pause
+$ vboxmanage controlvm "windowsxp" poweroff
+$ vboxmanage snapshot "windowsxp" restorecurrent
+```
+![](snapshot.png)  
+
+## Konfigurasi Cuckoo
+
+Masuk ke folder conf. untuk path kami di ```/home/ahmadismail10/.cuckoo/conf/```
+1. Cuckoo.conf 
+```
+machinery = virtualbox
+[resultserver]
+ip = 192.168.56.1 #This is the IP address of the host
+port = 2042 #leave default unless you have services running
+```
+2. auxiliary.conf
+```
+[sniffer]
+# Enable or disable the use of an external sniffer (tcpdump) [yes/no].
+enabled = yes
+
+# Specify the path to your local installation of tcpdump. Make sure this
+# path is correct.
+# You can check this using the command: whereis tcpdump
+tcpdump = /usr/sbin/tcpdump
+
+# Specify the network interface name on which tcpdump should monitor the
+# traffic. Make sure the interface is active.
+```
+3. virtualbox.conf
+```
+# The ifconfig command will show you the interface name.
+interface = vboxnet0
+machines = windowsxp
+
+[windowsxp]
+label = windowsxp
+platform = windows
+ip = 192.168.56.10 # IP address of the guest
+snapshot = snapshot1 # name of snapshot
+```
+4. reporting.conf
+```
+[mongodb]
+enabled = yes
+```
+
+## Menjalankan Cuckoo
+1. Run Cuckoo
+ketik ```$ cuckoo``` pada terminal
+![](run-cuckoo.png)  
+2. Run Cuckoo pada web interface
+ketik ```$ cuckoo web runserver 0.0.0.0:8000```
+![](cuckoo-web.png)  
+![](web-cuckoo.png)  
