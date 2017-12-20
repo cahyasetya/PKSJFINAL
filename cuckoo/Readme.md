@@ -225,4 +225,57 @@ ketik ```$ cuckoo``` pada terminal
 2. Run Cuckoo pada web interface
 ketik ```$ cuckoo web runserver 0.0.0.0:8000```
 ![](cuckoo-web.png)  
+Buka pada browser ```0.0.0.0:8000```  
 ![](web-cuckoo.png)  
+
+## Testing  
+### Skenario 1
+#### Uji Malware Kelihos
+Langkah-langkah :
+1. Download Malware di https://github.com/ytisf/theZoo/tree/master/malwares/Binaries pilih salah satu. pada kasus kali ini kami memilih **Kelihos**  
+![](kelihos1.png)  
+2. Extract File dengan password **infected**
+![](kelihos2.png)  
+3. Submit file malware ke cuckoo dengan
+```
+$ cuckoo submit --package kelihos /home/ahmadismail10/Downloads/Kelihos/kelihos/9B68B45AFA269BA1B0C01749FA4B942F/Fake\ Intel\ \(1\).exe 
+```
+![](kelihos3.png)  
+4. jalankan cuckoo dengan ```$ cuckoo```
+![](run-cuckoo.png)  
+5. Lihat hasil analysis pada web cuckoo dengan membuka alamat ```0.0.0.0:8000```
+![](analysis1.png)  
+
+### Skenario 2
+#### Uji Malware ZeroAccess
+Langkah-langkah:  
+1. Download Malware di https://github.com/ytisf/theZoo/tree/master/malwares/Binaries pilih salah satu. pada kasus kali ini kami memilih **ZeroAccess**  
+![](zeroaccess1.png)  
+2. Extract File dengan password **infected**
+![](zeroaccess2.png)  
+3. Submit file malware ke cuckoo dengan
+```
+$ cuckoo submit --package keZeroAccess /home/ahmadismail10/theZoo/malwares/Binaries/ZeroAccess/ZeroAccess/ZeroAccess_xxx-porn-movie.avi.exe_ 
+```
+![](zeroaccess3.png)  
+4. jalankan cuckoo dengan ```$ cuckoo```
+![](run-cuckoo.png)  
+5. Lihat hasil analysis pada web cuckoo dengan membuka alamat ```0.0.0.0:8000```
+![](analysis2.png)  
+
+### Skenario 3
+#### Uji Malware Kelihos dengan timeout 1000s
+Langkah-langkah:
+1. Download Malware di https://github.com/ytisf/theZoo/tree/master/malwares/Binaries pilih salah satu. pada kasus kali ini kami memilih **Kelihos**  
+![](kelihos1.png)  
+2. Extract File dengan password **infected**
+![](kelihos2.png)  
+3. Submit file malware ke cuckoo dengan
+```
+$ cuckoo submit --package kelihos /home/ahmadismail10/Downloads/Kelihos/kelihos/9B68B45AFA269BA1B0C01749FA4B942F/Fake\ Intel\ \(1\).exe 
+```
+![](kelihostimeout.png)  
+4. jalankan cuckoo dengan ```$ cuckoo```
+![](run-cuckoo.png)  
+5. Lihat hasil analysis pada web cuckoo dengan membuka alamat ```0.0.0.0:8000```
+![](analysis3.png)  
