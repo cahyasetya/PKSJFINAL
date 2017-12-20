@@ -127,6 +127,20 @@ dapat kita lihat pada bagian Surname memiliki value dengan atribut **user<spasi>
 10. Kita dapat menampilkan isi dari table user pada information_scheme dengan query **%' and 1=0 union select null, concat(first\_name,0x0a,last\_name,0x0a,user,0x0a,password) from users #**
 ![](6/usercontent.PNG)
 Dapat kita lihat pada bagian Surname menampilkan record pada table user di information_scheme
+11. Selanjutnya kita highlight user dan password, lalu copy  
+![](6/highlights.PNG)
+12. Selanjutnya kita paste ke text editor dan buat format password hash
+![](6/pastehash.PNG)
+13. Ulangi langkah 11-12 untuk semua record  
+![](6/completehash.PNG)
+14. Lalu simpan file tersebut di folder **~/pentest/password/john** dan kita beri nama **dvwa_password.txt**  
+![](6/simpanhash.PNG)
+15. Selanjutnya buka terminal  
+![](6/terminal.PNG)
+16. Lalu jalankan perintah **john --format-raw=MD5 dvwa\_password.txt** untuk melakukan cracking password  
+![](6/exploit.PNG)
+17. Hasil crack password akan nampak seperti ini  
+![](6/exploitresult.PNG)  
 
 ##Lesson 7(Automate SQL Injection with SqlMap)
 Pada sesi kali ini kita akan mencoba melakukan sqlinjection dengan sqlmap. Sqlmap adalah tools khusus yang dibuat untuk melakukan sqlinjection.  
